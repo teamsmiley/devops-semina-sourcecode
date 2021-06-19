@@ -40,11 +40,11 @@ jobs:
           repository: teamsmiley/argocd-test
           token: ${{ secrets.PAT }}
 
-      # - name: replace staging image version number to sha
-      #   # if: github.ref == 'refs/heads/dev'
-      #   run: |
-      #     cd apps/rendercore-staging
-      #     sed "s/:latest/:${{ github.sha }}/g" 31.api.origin > 31.api.yml
+      - name: replace staging image version number to sha
+        # if: github.ref == 'refs/heads/dev'
+        run: |
+          cd apps/my-webserver
+          sed "s/:latest/:${{ github.sha }}/g" deployment.org > deployment.yml
 
       # # - name: replace production image version number to sha
       # #   if: github.ref == 'refs/heads/main'
