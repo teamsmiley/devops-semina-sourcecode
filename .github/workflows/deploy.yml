@@ -37,7 +37,7 @@ jobs:
       - name: Checkout argocd
         uses: actions/checkout@v2
         with:
-          repository: teamsmiley/argocd-test
+          repository: teamsmiley/argo-test
           token: ${{ secrets.PAT }}
 
       - name: replace staging image version number to sha
