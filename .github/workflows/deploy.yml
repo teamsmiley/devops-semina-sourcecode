@@ -34,11 +34,11 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           # docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-      # - name: Checkout argocd
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: teamsmiley/rendercore-argocd
-      #     token: ${{ secrets.PAT }}
+      - name: Checkout argocd
+        uses: actions/checkout@v2
+        with:
+          repository: teamsmiley/argocd-test
+          token: ${{ secrets.PAT }}
 
       # - name: replace staging image version number to sha
       #   # if: github.ref == 'refs/heads/dev'
