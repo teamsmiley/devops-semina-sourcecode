@@ -1,0 +1,61 @@
+name: CI-CD
+
+on:
+  push:
+    branches: [main,dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1
+
+      - name: Login to Amazon ECR
+        id: ecr-user
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: 530310289353.dkr.ecr.us-west-1.amazonaws.com
+          ECR_REPOSITORY: test-api
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          # docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          # docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      # - name: Checkout argocd
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: teamsmiley/rendercore-argocd
+      #     token: ${{ secrets.PAT }}
+
+      # - name: replace staging image version number to sha
+      #   # if: github.ref == 'refs/heads/dev'
+      #   run: |
+      #     cd apps/rendercore-staging
+      #     sed "s/:latest/:${{ github.sha }}/g" 31.api.origin > 31.api.yml
+
+      # # - name: replace production image version number to sha
+      # #   if: github.ref == 'refs/heads/main'
+      # #   run: |
+      # #     cd apps/rendercore-prod
+      # #     sed "s/:latest/:${{ github.sha }}/g" 31.api.origin > 31.api.yml
+
+
+      # - name: Commit files
+      #   run: |
+      #     git config --local user.email "action@github.com"
+      #     git config --local user.name "GitHub Action"
+      #     git commit -am "change docker tag"
+      #     git push
