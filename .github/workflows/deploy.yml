@@ -53,9 +53,9 @@ jobs:
       # #     sed "s/:latest/:${{ github.sha }}/g" 31.api.origin > 31.api.yml
 
 
-      # - name: Commit files
-      #   run: |
-      #     git config --local user.email "action@github.com"
-      #     git config --local user.name "GitHub Action"
-      #     git commit -am "change docker tag"
-      #     git push
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "change docker tag"
+          git push
