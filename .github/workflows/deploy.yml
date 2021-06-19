@@ -43,6 +43,8 @@ jobs:
       - name: replace staging image version number to sha
         # if: github.ref == 'refs/heads/dev'
         run: |
+          ls -alF
+          pwd
           cd apps/my-webserver
           sed "s/:latest/:${{ github.sha }}/g" deployment.org > deployment.yml
 
