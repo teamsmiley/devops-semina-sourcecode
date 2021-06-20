@@ -41,16 +41,16 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - name: replace staging image version number to sha
-        # if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/dev'
         run: |
-          cd apps/my-webserver
+          cd apps/my-webserver-staing
           sed "s/:latest/:${{ github.sha }}/g" deployment.org > deployment.yml
 
-      # # - name: replace production image version number to sha
-      # #   if: github.ref == 'refs/heads/main'
-      # #   run: |
-      # #     cd apps/rendercore-prod
-      # #     sed "s/:latest/:${{ github.sha }}/g" 31.api.origin > 31.api.yml
+      - name: replace production image version number to sha
+        if: github.ref == 'refs/heads/main'
+        run: |
+          cd apps/my-webserver-prod
+          sed "s/:latest/:${{ github.sha }}/g" deployment.org > deployment.yml
 
 
       - name: Commit files
