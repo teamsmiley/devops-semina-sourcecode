@@ -1,4 +1,4 @@
-name: CI-CD
+name: schedule task
 
 on:
   schedule:
