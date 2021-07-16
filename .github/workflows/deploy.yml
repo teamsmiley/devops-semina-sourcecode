@@ -14,4 +14,3 @@ jobs:
       - name: running
         run: |
           echo "running"
-          ping 4.2.2.2
