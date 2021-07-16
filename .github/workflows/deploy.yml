@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: running
         run: |
           echo "running"
           ping 4.2.2.2
