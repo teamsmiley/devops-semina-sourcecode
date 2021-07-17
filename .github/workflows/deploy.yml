@@ -1,16 +1,16 @@
-name: schedule task
+# name: schedule task
 
-on:
-  push:
-    branches: [main]
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron: "*/2 * * * *"
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# on:
+#   push:
+#     branches: [main]
+#   schedule:
+#     # * is a special character in YAML so you have to quote this string
+#     - cron: "*/2 * * * *"
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: running
-        run: |
-          echo "running"
+#     steps:
+#       - name: running
+#         run: |
+#           echo "running"
